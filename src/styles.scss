@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+
+.even {
+    background-color: #63a2c7;
+    color: white;
+}
+
+.odd {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

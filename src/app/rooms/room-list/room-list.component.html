@@ -1,0 +1,43 @@
+<h2>{{ title }}</h2>
+<table class="table">
+    <tr>
+        <th>No.</th>
+        <!-- <th>Even/Odd</th> -->
+        <th>Room Number</th>
+        <th>Room Type</th>
+        <th>Room Price</th>
+        <th>Room Amenities</th>
+        <th>Check In Time</th>
+        <th>Rating</th>
+        <th>Select Room</th>
+    </tr>
+    <!-- Slice Pipe untuk menampilkan data yang ingin ditampilkan (optional, bisa dihapus) -->
+    <tr 
+        [ngClass]="{'even': e, 'odd': o}"
+        *ngFor="let room of rooms | slice : 0:10;
+                let e = even; let o = odd;
+                let i = index; ">
+        <td>{{ i+1 }}</td>
+        <!-- <td>{{ e ? "Even" : "Odd" }}</td> -->
+        <td>{{ room.roomNumber }}</td>
+        <!-- upperCase -->
+        <td>{{ room.roomType | uppercase}}</td>
+        <!-- currency -->
+        <td>{{ room.price  | currency: 'IDR '}}</td>
+        <!-- lowerCase -->
+        <td>{{ room.amenities | lowercase}}</td>
+        <!-- DatePipe -->
+        <td>{{ room.checkInTime | date : 'dd/MM/yyyy'}}</td>
+        <!-- DesimalPipe -->
+        <td>{{ room.rating | number : '1.1-1' }}</td>
+        <td>
+            <!-- <button class="btn btn-primary" (click)="selectRoom(room)">Select</button> -->
+             <button class="btn btn-primary">
+                <!-- wajib pake slash sebelum rooms, yang menandakan routernya dimulai dari slash, kalau tanpa slash nanti roomsnya ketulis 2 kali dan redirect ke notfound -->
+                <a 
+                    [routerLink]="['/rooms', room.roomNumber]">Booking
+                </a>
+             </button>
+        </td>
+    </tr>
+</table>

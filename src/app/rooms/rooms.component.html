@@ -1,0 +1,66 @@
+<!-- Interpolation -->
+<!-- <h1>Welcome to {{ title }}</h1> -->
+<app-header></app-header>
+<!-- <app-header></app-header>
+<app-header></app-header> -->
+<!-- {{rooms$ | async | json&#125;}} -->
+
+<br/><br/>
+<!-- Event Binding -->
+<button (click)="toggle()">Toggle</button>
+
+<!-- Kalau pakai cara ini, di chrome masih kebaca hiddennya dan cause performance, makanya mending pake ngIf-->
+<div [hidden]="hideRooms">  <!-- Property Binding -->
+    <!-- Cara panggil data dalam HTML -->
+    Number of Rooms : 
+    <div [ngStyle]="{'color': rooms.availableRooms ? 'blue' : 'red'}" 
+    [innerText]="numberOfRooms">
+    </div> 
+</div>
+
+<br/>
+<!-- ika rooms ada (tidak null atau undefined), maka akan menampilkan jumlah kamar yang tersedia, yaitu rooms.availableRooms.
+Jika rooms tidak ada (misalnya nilainya null atau undefined), maka akan menampilkan 'No Rooms'. -->
+Available Rooms: {{ rooms ? rooms.availableRooms : 'No Rooms' }}
+
+<br/><br/>
+
+<div>
+   <button (click)="addRoom()">Add Room</button>
+   <button (click)="editRoom()">Edit Room</button>
+   <button (click)="deleteRoom()">Delete Room</button>
+</div>
+
+<br/>
+
+<div>
+   <h1>{{totalBytes}} loaded</h1>
+</div>
+
+<br/>
+<!-- ngIf untuk hidden -->
+ <!-- <div *ngIf="rooms.availableRooms > 0">
+    <app-room-list 
+    [roomList]="roomList"
+    (selectedRoom)="selectRoom($event)"></app-room-list>
+ </div> -->
+
+ <h1>
+   <!-- Ini untuk tampilin error -->
+   <!-- *ngIf="getError$ | async as errorMsg">
+   Error: {{ errorMsg }} -->
+   Number of Rooms: {{  roomsCount$ | async }}
+ </h1>
+
+ 
+
+ <!-- AsyncPipe -->
+ <div *ngIf="rooms$ | async as rooms">
+   <app-room-list 
+   [rooms]="rooms"
+   (selectedRoom)="selectRoom($event)"></app-room-list>
+</div>
+
+ <div *ngIf="selectedRoom">
+    {{ selectedRoom | json }}
+ </div>

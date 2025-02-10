@@ -1,0 +1,65 @@
+<!-- cek data -->
+ <!-- apakah form atau kontrol form belum diubah sejak pertama kali diinisialisasi. Nilainya adalah true jika belum diubah, dan false jika sudah diubah. -->
+{{  roomsForm.pristine | json }} <br/>
+ <!-- output: true  -->
+
+ <!-- apakah form atau kontrol form sudah diubah. Nilainya adalah true jika ada perubahan, dan false jika tidak ada perubahan. -->
+{{  roomsForm.dirty | json }} <br/>
+ <!-- output: false  -->
+
+ <!--  apakah form atau kontrol form memenuhi aturan validasi yang ditentukan. Nilainya adalah true jika valid, dan false jika ada kesalahan validasi. -->
+{{  roomsForm.valid | json }} <br/>
+ <!-- output: false  -->
+
+ <!-- kebalikan dari valid, yaitu true jika form tidak valid karena kesalahan validasi. -->
+{{  roomsForm.invalid | json }} <br/>
+ <!-- output: true  -->
+
+ <!-- Menunjukkan nilai yang dimasukkan dalam form atau kontrol form. -->
+{{  roomsForm.value | json }} <br/>
+
+<div *ngIf="successMessage !== '' " class="alert alert-success">
+    {{ successMessage }}
+</div>
+
+
+<!-- Validation yang bisa dipake: required, minlength, maxlength, min, max, email, pattern -->
+<form #roomsForm = "ngForm" (ngSubmit)="addRoom(roomsForm)">
+    <div class="form-group mb-3">
+        <input required 
+        class="form-control" type="text" placeholder="Room Type" name="roomType" [(ngModel)]="room.roomType">
+    </div>
+    <div class="form-group mb-3">
+        <input #roomamenities="ngModel"
+        required
+        minlength="5"
+        class="form-control" type="text" placeholder="Amenities" name="amenities" [(ngModel)]="room.amenities">
+    </div>
+    <div class="alert alert-danger" *ngIf="roomamenities.errors?.['minlength']"> Amenities should be min 5 characters. 
+        <!-- {{ roomamenities.errors | json }} -->
+    </div>
+    <!-- Pake dirty & pristine -->
+    <div class="alert alert-warning" *ngIf="roomamenities.dirty && roomamenities.errors?.['required']">
+        Please provide the amenities
+    </div>
+    <div class="form-group mb-3">
+        <input class="form-control" type="number" placeholder="Room Price per Night" name="price" [(ngModel)]="room.price">
+    </div>
+    <div class="form-group mb-3">
+        <input class="form-control" type="text" placeholder="Photos" name="photos" [(ngModel)]="room.photos">
+    </div>
+    <div class="form-group mb-3">
+        <input class="form-control" type="datetime" placeholder="Check-in Time" name="checkInTime" [(ngModel)]="room.checkInTime">
+    </div>
+    <div class="form-group mb-3">
+        <input class="form-control" type="datetime" placeholder="Check-out Time" name="checkOutTime" [(ngModel)]="room.checkOutTime">
+    </div>
+    <div class="form-group mb-3">
+        <input 
+        min=1 max=5
+        class="form-control" type="number" placeholder="Rating" name="rating" [(ngModel)]="room.rating">
+    </div>
+    <div>
+        <button [disabled]="roomsForm.invalid" class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
